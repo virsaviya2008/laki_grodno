@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laki — маникюр и педикюр в Гродно</title>
+<meta name="description" content="Маникюр и педикюр в центре Гродно, ул. Ожешко 45. Маникюр и педикюр в 4 руки, нюд за 60 минут, идеальный френч. Базовые курсы по маникюру и педикюру.">
+<meta name="theme-color" content="#f6efe9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --milk: #f6efe9;
+    --sand: #ecdfd4;
+    --nude: #d9b8a3;
+    --cherry: #6e1423;
+    --cherry-2: #8d1d2f;
+    --sage: #7d8c6e;
+    --ink: #2a1c1f;
+    --muted: #7a6a6c;
+    --line: rgba(42, 28, 31, 0.12);
+    --radius: 28px;
+    --pad-x: clamp(20px, 4vw, 56px);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Manrope', Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--milk); line-height: 1.5; -webkit-font-smoothing: antialiased; font-variant-numeric: lining-nums; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  button { font: inherit; cursor: pointer; }
+
+  .container { width: min(100% - var(--pad-x) * 2, 1200px); margin-inline: auto; }
+
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cherry); }
+  .h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(38px, 5vw, 64px); line-height: 1.02; letter-spacing: -0.01em; }
+  .h2 em { color: var(--cherry); }
+  .lead { font-size: 17px; color: var(--muted); max-width: 520px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 28px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.25s, background 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn--cherry { background: var(--cherry); color: var(--milk); }
+  .btn--cherry:hover { background: var(--cherry-2); }
+  .btn--ghost { border-color: var(--line); color: var(--ink); background: transparent; }
+  .btn--ghost:hover { border-color: var(--ink); }
+
+  /* ---------------------------------------------------------------- Header */
+  .header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  .header.is-scrolled { background: rgba(246, 239, 233, 0.92); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
+  .header__inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+  .logo { font-family: var(--serif); font-size: 32px; font-weight: 600; font-style: italic; text-decoration: none; letter-spacing: -0.01em; }
+  .logo span { color: var(--cherry); }
+  .nav { display: flex; gap: 30px; }
+  .nav a { font-size: 14px; font-weight: 500; text-decoration: none; color: var(--muted); transition: color 0.2s; }
+  .nav a:hover { color: var(--ink); }
+  .header .btn { padding: 11px 22px; font-size: 14px; }
+
+  /* ------------------------------------------------------------------ Hero */
+  .hero { padding: 140px 0 80px; overflow: hidden; }
+  .hero__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+  .hero__title { font-family: var(--serif); font-weight: 500; font-size: clamp(48px, 7vw, 96px); line-height: 0.95; letter-spacing: -0.02em; margin: 18px 0 26px; }
+  .hero__title em { color: var(--cherry); }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+  .hero__address { display: flex; align-items: center; gap: 10px; margin-top: 28px; font-size: 14px; color: var(--muted); }
+  .hero__address i { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); }
+
+  /* Nails: CSS-only illustration in the salon's signature shades */
+  .hand {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 45%, var(--sand), #e6d3c4 70%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 3%;
+    padding-bottom: 20%;
+  }
+  .nail {
+    width: 15%;
+    border-radius: 48% 48% 38% 38% / 34% 34% 22% 22%;
+    box-shadow: inset -6px -10px 18px rgba(0, 0, 0, 0.18), inset 6px 8px 14px rgba(255, 255, 255, 0.35), 0 18px 30px rgba(110, 20, 35, 0.15);
+    animation: float 6s ease-in-out infinite;
+  }
+  .nail::after {
+    content: '';
+    display: block;
+    width: 28%;
+    height: 34%;
+    margin: 18% 0 0 22%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    filter: blur(2px);
+  }
+  .nail:nth-child(1) { height: 42%; background: var(--nude); animation-delay: -1s; }
+  .nail:nth-child(2) { height: 54%; background: var(--cherry); animation-delay: -2s; }
+  .nail:nth-child(3) { height: 60%; background: linear-gradient(to top, #f3e7df 72%, #fffdfb 72%); animation-delay: -3s; }
+  .nail:nth-child(4) { height: 52%; background: var(--cherry-2); animation-delay: -4s; }
+  .nail:nth-child(5) { height: 38%; background: #c99c86; animation-delay: -5s; }
+
+  .hand__badge {
+    position: absolute;
+    top: -2%;
+    right: 2%;
+    padding: 18px 22px;
+    border-radius: 22px;
+    background: var(--milk);
+    box-shadow: 0 20px 40px rgba(42, 28, 31, 0.1);
+    transform: rotate(4deg);
+  }
+  .hand__badge b { display: block; font-family: var(--serif); font-size: 34px; line-height: 1; color: var(--cherry); }
+  .hand__badge span { font-size: 13px; color: var(--muted); }
+
+  @keyframes float { 50% { transform: translateY(-10px); } }
+
+  /* ----------------------------------------------------------------- Facts */
+  .facts { border-block: 1px solid var(--line); }
+  .facts__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .fact { padding: 30px 24px; }
+  .fact + .fact { border-left: 1px solid var(--line); }
+  .fact b { display: block; font-family: var(--serif); font-size: clamp(34px, 9vw, 42px); font-weight: 500; line-height: 1; white-space: nowrap; }
+  .fact span { font-size: 14px; color: var(--muted); }
+
+  .section { padding: clamp(80px, 10vw, 130px) 0; }
+  .section__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-bottom: 50px; }
+
+  /* -------------------------------------------------------------- Services */
+  .services__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .service {
+    display: flex;
+    flex-direction: column;
+    min-height: 330px;
+    padding: 28px;
+    border-radius: var(--radius);
+    background: #fff;
+    transition: transform 0.3s;
+  }
+  .service:hover { transform: translateY(-6px); }
+  .service__swatch { width: 54px; height: 70px; border-radius: 48% 48% 38% 38% / 34% 34% 22% 22%; margin-bottom: auto; }
+  .service h3 { font-family: var(--serif); font-weight: 600; font-size: 28px; line-height: 1.05; margin: 30px 0 10px; }
+  .service p { font-size: 14px; color: var(--muted); }
+  .service__price { margin-top: 18px; font-weight: 700; color: var(--cherry); text-decoration: none; }
+  .service--dark { background: var(--cherry); color: var(--milk); }
+  .service--dark p { color: rgba(246, 239, 233, 0.7); }
+  .service--dark .service__price { color: var(--milk); }
+
+  /* ----------------------------------------------------------------- Price */
+  .price { background: var(--sand); }
+  .masters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 34px; }
+  .master-tab {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 20px 8px 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font-weight: 700;
+    transition: background 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .master-tab__avatar {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--milk);
+    font-family: var(--serif);
+    font-size: 20px;
+    font-style: italic;
+    color: var(--cherry);
+  }
+  .master-tab small { display: block; font-size: 12px; font-weight: 500; color: var(--muted); text-align: left; }
+  .master-tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--milk); }
+  .master-tab[aria-selected="true"] small { color: rgba(246, 239, 233, 0.6); }
+
+  .price__card { display: grid; grid-template-columns: 1fr 340px; gap: 18px; }
+  .price__list { padding: 12px 34px; border-radius: var(--radius); background: var(--milk); list-style: none; }
+  .price__row { display: flex; align-items: baseline; gap: 14px; padding: 20px 0; }
+  .price__row + .price__row { border-top: 1px solid var(--line); }
+  .price__row span:first-child { font-size: 17px; }
+  .price__row i { flex: 1; border-bottom: 1px dotted rgba(42, 28, 31, 0.3); transform: translateY(-4px); }
+  .price__row b { font-family: var(--serif); font-size: 26px; font-weight: 600; white-space: nowrap; }
+  .price__list.is-switching { animation: fade 0.4s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } }
+
+  .combo {
+    display: flex;
+    flex-direction: column;
+    padding: 34px;
+    border-radius: var(--radius);
+    background: var(--cherry);
+    color: var(--milk);
+  }
+  .combo .eyebrow { color: rgba(246, 239, 233, 0.6); }
+  .combo h3 { font-family: var(--serif); font-weight: 500; font-size: 36px; line-height: 1.05; margin: 14px 0; }
+  .combo p { font-size: 15px; color: rgba(246, 239, 233, 0.75); }
+  .combo b { display: block; margin: auto 0 22px; padding-top: 24px; font-family: var(--serif); font-size: 60px; font-weight: 500; line-height: 1; }
+  .combo .btn { background: var(--milk); color: var(--cherry); }
+  .price__note { margin-top: 18px; font-size: 13px; color: var(--muted); }
+
+  /* --------------------------------------------------------------- Courses */
+  .courses__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .course { position: relative; padding: 40px; border-radius: var(--radius); background: #fff; overflow: hidden; }
+  .course__num { display: block; margin-bottom: 6px; font-family: var(--serif); font-size: 64px; font-style: italic; line-height: 1; color: var(--nude); }
+  .course h3 { position: relative; font-family: var(--serif); font-weight: 600; font-size: 34px; margin-bottom: 12px; }
+  .course ul { position: relative; list-style: none; margin: 22px 0 30px; }
+  .course li { padding: 10px 0 10px 26px; border-top: 1px solid var(--line); font-size: 15px; position: relative; }
+  .course li::before { content: ''; position: absolute; left: 4px; top: 19px; width: 8px; height: 8px; border-radius: 50%; background: var(--sage); }
+  .course .lead { position: relative; }
+
+  /* ---------------------------------------------------------------- Booking */
+  .booking { background: var(--ink); color: var(--milk); }
+  .booking .lead { color: rgba(246, 239, 233, 0.6); }
+  .booking .h2 em { color: #e7a3ae; }
+  .booking__grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 60px; align-items: start; }
+  .form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field--wide { grid-column: 1 / -1; }
+  .field label { font-size: 13px; color: rgba(246, 239, 233, 0.6); }
+  .field input,
+  .field select {
+    width: 100%;
+    padding: 16px 18px;
+    border: 1px solid rgba(246, 239, 233, 0.16);
+    border-radius: 16px;
+    background: rgba(246, 239, 233, 0.05);
+    color: var(--milk);
+    font: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .field select option { color: var(--ink); }
+  .field input:focus,
+  .field select:focus { border-color: #e7a3ae; }
+  .form .btn { grid-column: 1 / -1; margin-top: 8px; padding: 18px; background: var(--milk); color: var(--cherry); }
+  .form__hint { grid-column: 1 / -1; font-size: 13px; color: rgba(246, 239, 233, 0.5); }
+  .booking__contacts { margin-top: 40px; display: grid; gap: 12px; }
+  .booking__contacts a { display: inline-flex; align-items: center; gap: 12px; font-weight: 700; text-decoration: none; }
+  .booking__contacts a span { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(246, 239, 233, 0.08); }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    z-index: 60;
+    max-width: calc(100% - 40px);
+    padding: 16px 22px;
+    border-radius: 18px;
+    background: var(--milk);
+    color: var(--ink);
+    font-size: 14px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, 140%);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .toast.is-shown { transform: translate(-50%, 0); }
+
+  /* ----------------------------------------------------------------- Footer */
+  .contacts__grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 18px; }
+  .contacts__info { display: flex; flex-direction: column; gap: 26px; padding: 40px; border-radius: var(--radius); background: #fff; }
+  .contacts__info dt { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .contacts__info dd { margin-top: 6px; font-family: var(--serif); font-size: 26px; font-weight: 600; }
+  .contacts__info dd a { text-decoration: none; border-bottom: 1px solid var(--line); }
+  .map { min-height: 380px; border-radius: var(--radius); overflow: hidden; background: var(--sand); }
+  .map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; filter: grayscale(0.4) sepia(0.15); }
+
+  .footer { padding: 30px 0 40px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  .footer .container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .footer a { text-decoration: none; }
+  .footer a:hover { color: var(--cherry); }
+
+  /* ----------------------------------------------------------- Scroll reveal */
+  .js .sr { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .js .sr.is-in { opacity: 1; transform: none; }
+
+  /* ------------------------------------------------------------- Responsive */
+  @media (max-width: 1000px) {
+    .services__grid { grid-template-columns: repeat(2, 1fr); }
+    .price__card,
+    .booking__grid,
+    .contacts__grid { grid-template-columns: 1fr; }
+    .booking__grid { gap: 40px; }
+  }
+
+  @media (max-width: 760px) {
+    .nav { display: none; }
+    .hero { padding-top: 110px; }
+    .hero__grid { grid-template-columns: 1fr; }
+    .hand { max-width: 420px; width: 100%; margin: 10px auto 0; }
+    .facts__grid { grid-template-columns: 1fr 1fr; }
+    .fact:nth-child(3) { border-left: 0; }
+    .fact:nth-child(n + 3) { border-top: 1px solid var(--line); }
+    .section__head { flex-direction: column; align-items: flex-start; }
+    .courses__grid { grid-template-columns: 1fr; }
+    .price__list { padding: 6px 22px; }
+    .price__row { flex-wrap: wrap; gap: 4px 10px; }
+    .price__row span:first-child { font-size: 15px; }
+    .price__row b { font-size: 22px; }
+    .form { grid-template-columns: 1fr; }
+    .course, .contacts__info, .combo { padding: 28px; }
+  }
+
+  @media (max-width: 480px) {
+    .services__grid { grid-template-columns: 1fr; }
+    .service { min-height: 0; }
+    .service h3 { margin-top: 24px; }
+    .header .btn { padding: 10px 16px; font-size: 13px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .nail { animation: none; }
+    .js .sr { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a class="logo" href="#top">Laki<span>.</span></a>
+      <nav class="nav" aria-label="Меню">
+        <a href="#services">Услуги</a>
+        <a href="#price">Прайс</a>
+        <a href="#courses">Обучение</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <a class="btn btn--cherry" href="#booking">Записаться</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ================================================================ Hero -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div>
+          <p class="eyebrow">Ногтевая студия · Гродно</p>
+          <h1 class="hero__title">Маникюр, который <em>держится</em> и радует</h1>
+          <p class="lead">Маникюр и педикюр в 4 руки, нюд за 60 минут, идеальный френч и педикюр с плёнками. Четыре мастера в центре Гродно — выбирайте своего и записывайтесь в пару кликов.</p>
+          <div class="hero__actions">
+            <a class="btn btn--cherry" href="#booking">Записаться онлайн</a>
+            <a class="btn btn--ghost" href="#price">Смотреть прайс</a>
+          </div>
+          <p class="hero__address"><i></i> ул. Ожешко, 45 — центр города</p>
+        </div>
+
+        <div class="hand" aria-hidden="true">
+          <span class="nail"></span><span class="nail"></span><span class="nail"></span><span class="nail"></span><span class="nail"></span>
+          <div class="hand__badge"><b>130 р</b><span>маникюр + педикюр<br>в 4 руки</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================== Facts -->
+    <section class="facts" aria-label="Студия в цифрах">
+      <div class="container facts__grid">
+        <div class="fact sr"><b>4</b><span>мастера — у каждого свой прайс</span></div>
+        <div class="fact sr"><b>60 мин</b><span>на нюдовый маникюр</span></div>
+        <div class="fact sr"><b>1 200+</b><span>работ в нашем инстаграме</span></div>
+        <div class="fact sr"><b>5 700</b><span>подписчиков доверяют нам</span></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ Services -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow">Услуги</p>
+            <h2 class="h2">То, за чем<br>к нам <em>возвращаются</em></h2>
+          </div>
+          <p class="lead">Аккуратная форма, ровное покрытие и укрепление, чтобы ногти не ломались. Подберём оттенок под вас — от нюда до глубокой вишни.</p>
+        </div>
+
+        <div class="services__grid">
+          <article class="service service--dark sr">
+            <span class="service__swatch" style="background: var(--milk)"></span>
+            <h3>Маникюр и педикюр в 4 руки</h3>
+            <p>Два мастера работают одновременно — экономите время, а не качество.</p>
+            <p class="service__price">130 р</p>
+          </article>
+          <article class="service sr">
+            <span class="service__swatch" style="background: var(--nude)"></span>
+            <h3>Нюд за 60 минут</h3>
+            <p>Маникюр с укреплением и нюдовым покрытием — успеете в обеденный перерыв.</p>
+            <a class="service__price" href="#price">Цена — в прайсе мастера →</a>
+          </article>
+          <article class="service sr">
+            <span class="service__swatch" style="background: linear-gradient(to top, #f3e7df 70%, #fff 70%); box-shadow: inset 0 0 0 1px var(--line)"></span>
+            <h3>Идеальный френч</h3>
+            <p>Тонкая ровная линия улыбки — классика, которая подходит ко всему.</p>
+            <a class="service__price" href="#price">Цена — в прайсе мастера →</a>
+          </article>
+          <article class="service sr">
+            <span class="service__swatch" style="background: var(--cherry-2)"></span>
+            <h3>Педикюр с гель-лаком и плёнками</h3>
+            <p>Обработка стоп, пяточки и стойкое покрытие на несколько недель.</p>
+            <p class="service__price">от 60 р</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================== Price -->
+    <section class="section price" id="price">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow">Прайс</p>
+            <h2 class="h2">Выберите <em>мастера</em></h2>
+          </div>
+          <p class="lead">У каждого мастера свой прайс. Нажмите на имя — и увидите цены сразу, без пролистывания сторис.</p>
+        </div>
+
+        <div class="masters" role="tablist" aria-label="Мастера" id="masters"></div>
+
+        <div class="price__card">
+          <ul class="price__list" id="priceList" role="tabpanel" aria-live="polite"></ul>
+          <aside class="combo">
+            <p class="eyebrow">Экономит час</p>
+            <h3>Маникюр + педикюр в 4 руки</h3>
+            <p>Два мастера одновременно: руки и ноги за один визит.</p>
+            <b>130 р</b>
+            <a class="btn" href="#booking" data-service="Маникюр + педикюр в 4 руки">Записаться в 4 руки</a>
+          </aside>
+        </div>
+        <p class="price__note">Цены в белорусских рублях. Точную стоимость дизайна уточняйте у мастера.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================= Courses -->
+    <section class="section" id="courses">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow">Обучение</p>
+            <h2 class="h2">Станьте <em>мастером</em><br>с нуля</h2>
+          </div>
+          <p class="lead">Базовые курсы для тех, кто хочет новую профессию или делать красивый маникюр себе и подругам.</p>
+        </div>
+
+        <div class="courses__grid">
+          <article class="course sr">
+            <span class="course__num" aria-hidden="true">01</span>
+            <h3>Базовый курс по маникюру</h3>
+            <p class="lead">Три дня практики — от обработки до ровного покрытия.</p>
+            <ul>
+              <li>Аппаратный и комбинированный маникюр</li>
+              <li>Укрепление и выравнивание</li>
+              <li>Покрытие гель-лаком и френч</li>
+              <li>Практика на моделях</li>
+            </ul>
+            <a class="btn btn--cherry" href="#booking" data-service="Базовый курс по маникюру">Узнать о ближайшем наборе</a>
+          </article>
+          <article class="course sr">
+            <span class="course__num" aria-hidden="true">02</span>
+            <h3>Базовый курс по педикюру</h3>
+            <p class="lead">Всё, чтобы уверенно делать педикюр клиентам.</p>
+            <ul>
+              <li>Обработка стоп и пяточек</li>
+              <li>Работа с плёнками</li>
+              <li>Покрытие гель-лаком</li>
+              <li>Практика на моделях</li>
+            </ul>
+            <a class="btn btn--cherry" href="#booking" data-service="Базовый курс по педикюру">Узнать о ближайшем наборе</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= Booking -->
+    <section class="section booking" id="booking">
+      <div class="container booking__grid">
+        <div>
+          <p class="eyebrow" style="color:#e7a3ae">Онлайн-запись</p>
+          <h2 class="h2">Запишитесь<br>за <em>минуту</em></h2>
+          <p class="lead" style="margin-top:20px">Заполните форму — мы соберём сообщение и откроем директ. Останется только отправить.</p>
+          <div class="booking__contacts">
+            <a href="https://www.instagram.com/laki_grodno/" target="_blank" rel="noopener"><span>◎</span> @laki_grodno</a>
+            <a href="#contacts"><span>⌖</span> ул. Ожешко, 45</a>
+          </div>
+        </div>
+
+        <form class="form" id="bookingForm" novalidate>
+          <div class="field">
+            <label for="name">Ваше имя</label>
+            <input id="name" name="name" type="text" placeholder="Анастасия" autocomplete="given-name" required>
+          </div>
+          <div class="field">
+            <label for="phone">Телефон</label>
+            <input id="phone" name="phone" type="tel" placeholder="+375 (__) ___-__-__" autocomplete="tel">
+          </div>
+          <div class="field field--wide">
+            <label for="service">Услуга</label>
+            <select id="service" name="service"></select>
+          </div>
+          <div class="field">
+            <label for="master">Мастер</label>
+            <select id="master" name="master"></select>
+          </div>
+          <div class="field">
+            <label for="date">Удобная дата</label>
+            <input id="date" name="date" type="date">
+          </div>
+          <button class="btn" type="submit">Записаться через директ</button>
+          <p class="form__hint">Нажимая кнопку, вы отправляете заявку в наш инстаграм. Мы подтвердим время в ответном сообщении.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============================================================ Contacts -->
+    <section class="section" id="contacts">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow">Контакты</p>
+            <h2 class="h2">Ждём вас<br>в <em>центре</em> Гродно</h2>
+          </div>
+        </div>
+
+        <div class="contacts__grid">
+          <dl class="contacts__info">
+            <div><dt>Адрес</dt><dd>Гродно, ул. Ожешко, 45</dd></div>
+            <div><dt>Запись</dt><dd><a href="https://www.instagram.com/laki_grodno/" target="_blank" rel="noopener">Инстаграм @laki_grodno</a></dd></div>
+            <div><dt>Режим работы</dt><dd>По предварительной записи</dd></div>
+            <a class="btn btn--cherry" href="#booking">Записаться</a>
+          </dl>
+          <div class="map">
+            <iframe title="Карта: Гродно, ул. Ожешко 45" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://maps.google.com/maps?q=%D0%93%D1%80%D0%BE%D0%B4%D0%BD%D0%BE%2C%20%D1%83%D0%BB.%20%D0%9E%D0%B6%D0%B5%D1%88%D0%BA%D0%BE%2045&z=16&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© <span id="year">2026</span> Laki — маникюр и педикюр в Гродно</p>
+      <p>Сайт — <a href="https://t.me/virsaviya_web" target="_blank" rel="noopener">@virsaviya_web</a></p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    document.documentElement.classList.add('js');
+
+    // Prices from the salon's stories. Keys are service names, values in BYN.
+    const MASTERS = [
+      { name: 'Ирена', prices: {
+        'Маникюр с укреплением и гель-лаком': 60,
+        'Наращивание ногтей': 80,
+        'Гигиенический маникюр': 40,
+        'Педикюр с гель-лаком и пяточками': 70,
+        'Гигиенический педикюр': 55,
+        'Доп. укрепление полигелем, все ногти': '+5',
+      } },
+      { name: 'Анна', prices: {
+        'Маникюр с укреплением и гель-лаком': 55,
+        'Наращивание ногтей': 75,
+        'Гигиенический маникюр': 35,
+        'Педикюр с гель-лаком и пяточками': 70,
+        'Гигиенический педикюр': 55,
+        'Доп. укрепление полигелем': '+5',
+      } },
+      { name: 'Екатерина', prices: {
+        'Маникюр с гель-лаком и укреплением': 60,
+        'Наращивание ногтей': 80,
+        'Гигиенический маникюр': 40,
+        'Педикюр с гель-лаком и пяточками': 70,
+        'Гигиенический педикюр': 55,
+      } },
+      { name: 'Диана', prices: {
+        'Маникюр с укреплением': 50,
+        'Наращивание ногтей': 65,
+        'Снятие с гигиеническим маникюром': 35,
+        'Гигиенический маникюр': 30,
+        'Педикюр с гель-лаком и пяточками': 60,
+        'Гигиенический педикюр': 45,
+      } },
+    ];
+
+    const fmt = (v) => (typeof v === 'number' ? `${v} р` : `${v} р`);
+    const minPrice = (m) => Math.min(...Object.values(m.prices).filter((v) => typeof v === 'number'));
+
+    /* ---------------------------------------------------------- Price tabs */
+    const tabs = document.getElementById('masters');
+    const list = document.getElementById('priceList');
+
+    tabs.innerHTML = MASTERS.map((m, i) => `
+      <button class="master-tab" role="tab" type="button" aria-selected="${i === 0}" data-i="${i}">
+        <span class="master-tab__avatar">${m.name[0]}</span>
+        <span>${m.name}<small>от ${minPrice(m)} р</small></span>
+      </button>`).join('');
+
+    const showMaster = (i) => {
+      tabs.querySelectorAll('.master-tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.i == i)));
+      list.innerHTML = Object.entries(MASTERS[i].prices)
+        .map(([service, price]) => `<li class="price__row"><span>${service}</span><i></i><b>${fmt(price)}</b></li>`)
+        .join('');
+      list.classList.remove('is-switching');
+      void list.offsetWidth;
+      list.classList.add('is-switching');
+    };
+
+    tabs.addEventListener('click', (e) => {
+      const tab = e.target.closest('.master-tab');
+      if (tab) showMaster(tab.dataset.i);
+    });
+    showMaster(0);
+
+    /* ------------------------------------------------------------- Booking */
+    const serviceSelect = document.getElementById('service');
+    const masterSelect = document.getElementById('master');
+    const services = [
+      'Маникюр + педикюр в 4 руки',
+      ...new Set(MASTERS.flatMap((m) => Object.keys(m.prices)).filter((s) => !s.startsWith('Доп.'))),
+      'Нюд за 60 минут',
+      'Идеальный френч',
+      'Базовый курс по маникюру',
+      'Базовый курс по педикюру',
+    ];
+    serviceSelect.innerHTML = services.map((s) => `<option>${s}</option>`).join('');
+    masterSelect.innerHTML = ['Любой свободный', ...MASTERS.map((m) => m.name)].map((m) => `<option>${m}</option>`).join('');
+
+    const dateInput = document.getElementById('date');
+    dateInput.min = new Date().toISOString().slice(0, 10);
+
+    // Buttons with data-service preselect the service in the form
+    document.querySelectorAll('[data-service]').forEach((btn) =>
+      btn.addEventListener('click', () => { serviceSelect.value = btn.dataset.service; }));
+
+    const toast = document.getElementById('toast');
+    const showToast = (text) => {
+      toast.textContent = text;
+      toast.classList.add('is-shown');
+      clearTimeout(showToast.t);
+      showToast.t = setTimeout(() => toast.classList.remove('is-shown'), 5000);
+    };
+
+    document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const f = e.target;
+      if (!f.name.value.trim()) { f.name.focus(); showToast('Напишите, пожалуйста, ваше имя'); return; }
+
+      const date = f.date.value ? new Date(f.date.value).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) : 'в ближайшее время';
+      const text = [
+        'Здравствуйте! Хочу записаться.',
+        `Услуга: ${f.service.value}`,
+        `Мастер: ${f.master.value}`,
+        `Когда удобно: ${date}`,
+        `${f.name.value.trim()}${f.phone.value.trim() ? ', ' + f.phone.value.trim() : ''}`,
+      ].join('\n');
+
+      try { await navigator.clipboard.writeText(text); } catch {}
+      showToast('Текст заявки скопирован — вставьте его в директ и отправьте 💅');
+      window.open('https://ig.me/m/laki_grodno', '_blank', 'noopener');
+    });
+
+    /* -------------------------------------------------------------- Misc */
+    const header = document.getElementById('header');
+    const onScroll = () => header.classList.toggle('is-scrolled', scrollY > 20);
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      }), { threshold: 0.15 });
+      document.querySelectorAll('.sr').forEach((el, i) => { el.style.transitionDelay = `${(i % 4) * 80}ms`; io.observe(el); });
+    } else {
+      document.querySelectorAll('.sr').forEach((el) => el.classList.add('is-in'));
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
